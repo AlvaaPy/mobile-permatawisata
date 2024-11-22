@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../networks/api_users.dart';
-import '../../home/home.dart';
+// import '../../home/home.dart';
 import '../login.dart';
 
 class RegisterForm extends StatefulWidget {

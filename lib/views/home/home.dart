@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permatawisata/views/profile/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../privatetrip/private.dart';
 import '../trip/opentrip.dart';
 import 'components/homebar.dart';
 import 'homepage.dart';
@@ -42,7 +43,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _pages = [
     const HomeContent(),
     const OpentripPage(),
-    Container(),
+    const PrivateTrip(),
     Container(),
     ProfilePage(),
   ];

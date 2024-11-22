@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../networks/api_trip.dart';
+import 'description.dart';
+import 'itenary_trip.dart';
+import 'meeting_points.dart';
 
 class DetailTripPage extends StatefulWidget {
   final int tripID;
@@ -10,7 +13,8 @@ class DetailTripPage extends StatefulWidget {
   State<DetailTripPage> createState() => _DetailTripPageState();
 }
 
-class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProviderStateMixin {
+class _DetailTripPageState extends State<DetailTripPage>
+    with SingleTickerProviderStateMixin {
   late Future<Map<String, dynamic>> _tripDetailFuture;
   late TabController _tabController;
 
@@ -18,7 +22,8 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
   void initState() {
     super.initState();
     _tripDetailFuture = ApiTrip.detailTrips(widget.tripID);
-    _tabController = TabController(length: 3, vsync: this);  // Menambahkan TabController untuk 3 tab
+    _tabController = TabController(
+        length: 3, vsync: this); // Menambahkan TabController untuk 3 tab
   }
 
   @override
@@ -36,7 +41,8 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).primaryColor),
               ),
             );
           } else if (snapshot.hasError) {
@@ -91,7 +97,9 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                                     height: 60,
                                     width: 60,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            Image.asset(
                                       "assets/img/landingpage1.png",
                                       height: 60,
                                       width: 60,
@@ -125,12 +133,14 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
-                      const Icon(Icons.location_on, color: Colors.grey, size: 20),
+                      const Icon(Icons.location_on,
+                          color: Colors.grey, size: 20),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           trip['alamat'],
-                          style: const TextStyle(fontSize: 14, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 14, color: Colors.grey),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -150,7 +160,8 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                         trip['rating'] != null
                             ? trip['rating'].toString()
                             : "Belum ada rating",
-                        style: const TextStyle(fontSize: 14, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 14, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -158,11 +169,11 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                 const SizedBox(height: 16),
 
                 // Deskripsi trip
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                const Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     "Deskripsi",
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -172,15 +183,16 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    trip['deskripsi'],
+                    _shortenText(trip['deskripsi']),
                     style: const TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                 ),
+
                 const SizedBox(height: 16),
 
-                // Tab Menu: Description, Itinerary, Meeting Point
+                // Bagian Tab Menu dan TabBarView
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
                   child: TabBar(
                     controller: _tabController,
                     tabs: const [
@@ -191,35 +203,41 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                     labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
                   ),
                 ),
-                Container(
+
+                SizedBox(
                   height: 300,
-                  color: Colors.grey[100],
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      // Tab 1: Description
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(trip['deskripsi'], style: const TextStyle(fontSize: 14, color: Colors.black)),
-                      ),
-                      // Tab 2: Itinerary
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(trip['itinerary'] ?? "Itinerary tidak tersedia", style: const TextStyle(fontSize: 14, color: Colors.black)),
-                      ),
-                      // Tab 3: Meeting Point
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(trip['meeting_point'] ?? "Meeting point tidak tersedia", style: const TextStyle(fontSize: 14, color: Colors.black)),
-                      ),
+                      // Tab Deskripsi
+                      DescriptionTab(
+                          description:
+                              trip['deskripsi'] ?? "Deskripsi tidak tersedia"),
+
+                      // Tab Itinerary
+                      trip['itenary_trip'] != null &&
+                              trip['itenary_trip'] is List
+                          ? ItineraryTab(
+                              itinerary: List<Map<String, dynamic>>.from(
+                                  trip['itenary_trip']))
+                          : const Center(
+                              child: Text("Itinerary tidak tersedia")),
+
+                      // Tab Meeting Point
+                      MeetingPointTab(
+                          meetingPoint: trip['meeting_point'] ??
+                              "Meeting point belum ditentukan"),
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 16),
 
-                // Button untuk melakukan pemesanan atau tindakan lainnya
+                
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
@@ -229,11 +247,11 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
                         const SnackBar(content: Text("Pemesanan Trip")),
                       );
                     },
-                    child: const Text("Pesan Sekarang"),
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50),
-                      primary: Theme.of(context).primaryColor,
+                      minimumSize: const Size(double.infinity, 50),
+                      backgroundColor: Theme.of(context).primaryColor,
                     ),
+                    child: const Text("Pesan Sekarang"),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -243,5 +261,14 @@ class _DetailTripPageState extends State<DetailTripPage> with SingleTickerProvid
         },
       ),
     );
+  }
+
+  String _shortenText(String text) {
+    List<String> words = text.split(' '); // Memisahkan teks menjadi kata-kata
+    if (words.length <= 15) {
+      return text; // Jika kurang dari 15 kata, tampilkan teks asli
+    }
+    return words.sublist(0, 15).join(' ') +
+        '...'; // Gabungkan 15 kata pertama dengan "..."
   }
 }

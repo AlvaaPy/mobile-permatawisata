@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
-import '../../networks/api_trip.dart';
-import '../details/detail_trip.dart';
+import '../../../networks/api_trip.dart';
+import '../../details/detail_trip.dart';
 
-class OpentripPage extends StatefulWidget {
-  const OpentripPage({Key? key}) : super(key: key);
+class PrivateTripPage extends StatefulWidget {
+  const PrivateTripPage({super.key});
 
   @override
-  State<OpentripPage> createState() => _OpentripPageState();
+  State<PrivateTripPage> createState() => _PrivateTripPageState();
 }
 
-class _OpentripPageState extends State<OpentripPage> {
-  late Future<List<Map<String, dynamic>>> _tripsFuture;
+class _PrivateTripPageState extends State<PrivateTripPage> {
+  late Future<List<Map<String, dynamic>>> _privateTripsFuture;
 
   @override
   void initState() {
     super.initState();
-    _tripsFuture = ApiTrip.getTrips();
+    _privateTripsFuture = ApiTrip.getTrips(); // Ambil data private trips
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: _tripsFuture,
+        future: _privateTripsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).primaryColor),
+                  Theme.of(context).primaryColor,
+                ),
               ),
             );
           } else if (snapshot.hasError) {
@@ -37,7 +38,7 @@ class _OpentripPageState extends State<OpentripPage> {
             return Center(child: EmptyStateWidget());
           }
 
-          final trips = snapshot.data!;
+          final privateTrips = snapshot.data!;
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: GridView.builder(
@@ -47,9 +48,9 @@ class _OpentripPageState extends State<OpentripPage> {
                 mainAxisSpacing: 10.0,
                 childAspectRatio: 0.75,
               ),
-              itemCount: trips.length,
+              itemCount: privateTrips.length,
               itemBuilder: (context, index) {
-                final trip = trips[index];
+                final trip = privateTrips[index];
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -77,7 +78,6 @@ class _OpentripPageState extends State<OpentripPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Gambar Trip
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(12.0),
@@ -102,7 +102,6 @@ class _OpentripPageState extends State<OpentripPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Nama Trip
                               Text(
                                 trip['namaTrip'],
                                 style: const TextStyle(
@@ -114,8 +113,6 @@ class _OpentripPageState extends State<OpentripPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 6),
-
-                              // Lokasi Trip
                               Row(
                                 children: [
                                   const Icon(Icons.location_on,
@@ -133,8 +130,6 @@ class _OpentripPageState extends State<OpentripPage> {
                                 ],
                               ),
                               const SizedBox(height: 6),
-
-                              // Harga Trip
                               Row(
                                 children: [
                                   const Icon(Icons.monetization_on,
@@ -151,8 +146,6 @@ class _OpentripPageState extends State<OpentripPage> {
                                 ],
                               ),
                               const SizedBox(height: 6),
-
-                              // Tanggal Trip
                               Row(
                                 children: [
                                   const Icon(Icons.calendar_today,
@@ -179,10 +172,10 @@ class _OpentripPageState extends State<OpentripPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Aksi untuk menambah trip atau filter trip
+          // Aksi untuk menambah atau memfilter private trip
         },
         child: const Icon(Icons.filter_list),
-        tooltip: 'Filter Trip',
+        tooltip: 'Filter Private Trip',
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
@@ -199,7 +192,7 @@ class EmptyStateWidget extends StatelessWidget {
           Icon(Icons.sentiment_dissatisfied, size: 60, color: Colors.grey),
           SizedBox(height: 16),
           Text(
-            "Tidak ada trip tersedia",
+            "Tidak ada private trip tersedia",
             style: TextStyle(fontSize: 14, color: Colors.grey),
           ),
         ],
