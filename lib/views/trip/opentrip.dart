@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../networks/api_trip.dart';
 import '../details/detail_trip.dart';
 
@@ -37,7 +38,19 @@ class _OpentripPageState extends State<OpentripPage> {
             return Center(child: EmptyStateWidget());
           }
 
-          final trips = snapshot.data!;
+          // Filter hanya trip dengan trip_type = 'open'
+          final trips = snapshot.data!
+              .where((trip) => trip['trip_type'] == 'open')
+              .toList();
+
+          if (trips.isEmpty) {
+            return const Center(
+              child: Text(
+                "Tidak ada trip terbuka tersedia",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: GridView.builder(
@@ -134,7 +147,6 @@ class _OpentripPageState extends State<OpentripPage> {
                               ),
                               const SizedBox(height: 6),
 
-                              // Harga Trip
                               Row(
                                 children: [
                                   const Icon(Icons.monetization_on,
@@ -165,6 +177,34 @@ class _OpentripPageState extends State<OpentripPage> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+
+                              // Jenis Trip
+                              Row(
+                                children: [
+                                  Text(
+                                    trip['trip_type'],
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                      width: 2), // Memberikan jarak antara teks
+                                  const Text(
+                                    "Trip", // Teks yang ingin ditambahkan setelah trip_type
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight
+                                          .bold, // Warna teks tambahan
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:permatawisata/views/profile/editprofile.dart';
 import '../../networks/api_users.dart';
 import '../auth/login.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -32,13 +35,14 @@ class _ProfilePageState extends State<ProfilePage> {
       await ApiUsers.logout();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Login()), // Langsung ke LoginPage
+        MaterialPageRoute(
+            builder: (context) => Login()), // Langsung ke LoginPage
         (route) => false, // Menghapus semua halaman sebelumnya
       );
     } catch (e) {
       print('Logout error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Gagal logout. Silakan coba lagi.'),
         ),
       );
@@ -119,7 +123,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         ElevatedButton.icon(
                           onPressed: () {
-                            print('Navigasi ke halaman edit profil');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EditProfile()),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.blueAccent,

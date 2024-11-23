@@ -28,8 +28,7 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
             return Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
-                ),
+                    Theme.of(context).primaryColor),
               ),
             );
           } else if (snapshot.hasError) {
@@ -38,7 +37,19 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
             return Center(child: EmptyStateWidget());
           }
 
-          final privateTrips = snapshot.data!;
+          // Filter hanya trip dengan trip_type = 'open'
+          final trips = snapshot.data!
+              .where((trip) => trip['trip_type'] == 'private')
+              .toList();
+
+          if (trips.isEmpty) {
+            return const Center(
+              child: Text(
+                "Tidak ada trip terbuka tersedia",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: GridView.builder(
@@ -48,9 +59,9 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                 mainAxisSpacing: 10.0,
                 childAspectRatio: 0.75,
               ),
-              itemCount: privateTrips.length,
+              itemCount: trips.length,
               itemBuilder: (context, index) {
-                final trip = privateTrips[index];
+                final trip = trips[index];
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -78,6 +89,7 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Gambar Trip
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(12.0),
@@ -102,6 +114,7 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Nama Trip
                               Text(
                                 trip['namaTrip'],
                                 style: const TextStyle(
@@ -113,6 +126,8 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 6),
+
+                              // Lokasi Trip
                               Row(
                                 children: [
                                   const Icon(Icons.location_on,
@@ -130,6 +145,7 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                                 ],
                               ),
                               const SizedBox(height: 6),
+
                               Row(
                                 children: [
                                   const Icon(Icons.monetization_on,
@@ -146,6 +162,8 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                                 ],
                               ),
                               const SizedBox(height: 6),
+
+                              // Tanggal Trip
                               Row(
                                 children: [
                                   const Icon(Icons.calendar_today,
@@ -158,6 +176,34 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+
+                              // Jenis Trip
+                              Row(
+                                children: [
+                                  Text(
+                                    trip['trip_type'],
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                      width: 2), // Memberikan jarak antara teks
+                                  const Text(
+                                    "Trip", // Teks yang ingin ditambahkan setelah trip_type
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight
+                                          .bold, // Warna teks tambahan
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -172,10 +218,10 @@ class _PrivateTripPageState extends State<PrivateTripPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Aksi untuk menambah atau memfilter private trip
+          // Aksi untuk menambah trip atau filter trip
         },
         child: const Icon(Icons.filter_list),
-        tooltip: 'Filter Private Trip',
+        tooltip: 'Filter Trip',
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );

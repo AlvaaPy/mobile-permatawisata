@@ -28,6 +28,8 @@ class ApiTrip {
           'start_date': trip['start_date'],
           'end_date': trip['end_date'],
           'rating': trip['rating'] ?? 'N/A',
+          'trip_type' : trip['trip_type'],
+          'capacity' : trip['capacity'],
           'picture':
               'http://192.168.174.1:8000/uploads/img/trip/${trip['picture']}', // URL gambar utama
         };
@@ -79,6 +81,7 @@ class ApiTrip {
           "start_date": data["start_date"],
           "end_date": data["end_date"],
           "rating": data["rating"] ?? "N/A",
+          'capacity' : data['capacity'],
           "picture": mainImageUrl, // Gambar utama
           "city": {
             "cityID": data["city"]["cityID"],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permatawisata/views/profile/profile.dart';
+import 'package:permatawisata/views/rental/rental.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../privatetrip/private.dart';
 import '../trip/opentrip.dart';
@@ -44,8 +45,8 @@ class _HomeState extends State<Home> {
     const HomeContent(),
     const OpentripPage(),
     const PrivateTrip(),
-    Container(),
-    ProfilePage(),
+    const RentalPage(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

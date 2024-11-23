@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permatawisata/views/privatetrip/customTrip/custom_trip.dart';
 import 'privateTrip/private_trip.dart';
 
 class PrivateTrip extends StatefulWidget {
@@ -14,11 +15,12 @@ class _PrivateTripState extends State<PrivateTrip> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start, // Menempatkan di atas
         crossAxisAlignment: CrossAxisAlignment.center, // Di tengah horizontal
         children: [
-          const SizedBox(height: 50), // Jarak dari atas layar
+          const SizedBox(height: 20), // Jarak dari atas layar
           Row(
             mainAxisAlignment: MainAxisAlignment.center, // Di tengah secara horizontal
             children: [
@@ -35,7 +37,7 @@ class _PrivateTripState extends State<PrivateTrip> {
                   foregroundColor: selectedButton == 'private'
                       ? Colors.white
                       : Colors.black, // Warna teks
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Colors.blueAccent,
                     width: 2,
                   ),
@@ -63,7 +65,7 @@ class _PrivateTripState extends State<PrivateTrip> {
                   foregroundColor: selectedButton == 'custom'
                       ? Colors.white
                       : Colors.black, // Warna teks
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Colors.blueAccent,
                     width: 2,
                   ),
@@ -83,7 +85,7 @@ class _PrivateTripState extends State<PrivateTrip> {
           Expanded(
             child: selectedButton == 'private'
                 ? const PrivateTripPage() // Tampilkan PrivateTripPage
-                :  Container(), // Tampilkan CustomTripPage
+                :  const CustomTrip(),
           ),
         ],
       ),
