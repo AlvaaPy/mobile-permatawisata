@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permatawisata/views/privatetrip/customTrip/date_custom.dart';
 
 class CustomTrip extends StatefulWidget {
   const CustomTrip({super.key});
@@ -11,11 +12,14 @@ class _CustomTripState extends State<CustomTrip> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: GestureDetector(
           onTap: () {
             // Aksi ketika tombol diklik
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SelectDatePage()));
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                   content: Text('Fitur Buat Custom Trip akan dikembangkan!')),
