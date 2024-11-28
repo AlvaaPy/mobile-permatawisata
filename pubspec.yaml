@@ -45,7 +45,7 @@ dependencies:
   http_parser: ^4.0.2
   path: ^1.8.3
   cached_network_image: ^3.3.1
-  syncfusion_flutter_datepicker: ^27.2.4
+  
 
 
 dev_dependencies:

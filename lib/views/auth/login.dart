@@ -65,6 +65,7 @@ class _LoginState extends State<Login> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('username', userData['username'] ?? 'Guest');
             prefs.setString('profile_picture', userData['profile_picture'] ?? '');
+            
 
             Navigator.pushReplacement(
               context,

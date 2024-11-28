@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:intl/intl.dart';
+import 'package:permatawisata/views/privatetrip/customTrip/form_custom.dart';
 
 class SelectDatePage extends StatefulWidget {
   const SelectDatePage({Key? key}) : super(key: key);
@@ -12,15 +11,6 @@ class SelectDatePage extends StatefulWidget {
 class _SelectDatePageState extends State<SelectDatePage> {
   DateTime? startDate;
   DateTime? endDate;
-
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(() {
-      if (args.value is PickerDateRange) {
-        startDate = args.value.startDate;
-        endDate = args.value.endDate;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,45 +24,90 @@ class _SelectDatePageState extends State<SelectDatePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Pilih Rentang Tanggal",
+              "Pilih Tanggal Mulai",
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () async {
+                DateTime? selected = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+                if (selected != null) {
+                  setState(() {
+                    startDate = selected;
+                  });
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  startDate != null
+                      ? startDate!.toLocal().toString().split(' ')[0]
+                      : "Klik untuk memilih tanggal mulai",
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
-            SfDateRangePicker(
-              selectionMode: DateRangePickerSelectionMode.range,
-              onSelectionChanged: _onSelectionChanged,
-              initialSelectedRange: PickerDateRange(
-                startDate ?? DateTime.now(),
-                endDate ?? DateTime.now().add(const Duration(days: 1)),
+            const Text(
+              "Pilih Tanggal Selesai",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () async {
+                DateTime? selected = await showDatePicker(
+                  context: context,
+                  initialDate: startDate ?? DateTime.now(),
+                  firstDate: startDate ?? DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+                if (selected != null) {
+                  setState(() {
+                    endDate = selected;
+                  });
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  endDate != null
+                      ? endDate!.toLocal().toString().split(' ')[0]
+                      : "Klik untuk memilih tanggal selesai",
+                ),
               ),
             ),
             const SizedBox(height: 30),
-            if (startDate != null && endDate != null)
-              Text(
-                "Tanggal Terpilih: ${DateFormat('yyyy-MM-dd').format(startDate!)} - ${DateFormat('yyyy-MM-dd').format(endDate!)}",
-                style: const TextStyle(fontSize: 16.0),
-              ),
-            const Spacer(),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   if (startDate == null || endDate == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Harap pilih rentang tanggal."),
+                        content: Text("Harap pilih tanggal mulai dan selesai."),
                       ),
                     );
                   } else {
-                    // Navigasi ke halaman berikutnya
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => CustomTripForm(
-                    //       startDate: startDate!,
-                    //       endDate: endDate!,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomTripForm(
+                          startDate: startDate!,
+                          endDate: endDate!,
+                        ),
+                      ),
+                    );
                   }
                 },
                 child: const Text("Lanjut ke Form Custom Trip"),

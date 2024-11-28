@@ -11,6 +11,7 @@ class ApiTripCustom {
     required String endDate,
     required int jumlahPeserta,
     String? tripID,
+    String? judul_trip,
     required String jenisCustom,
     required int cityID,
     required String alamatDetail,
@@ -23,7 +24,8 @@ class ApiTripCustom {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization':
+            'Bearer $token',
         },
         body: jsonEncode({
           'nama_pemesan': namaPemesan,
@@ -31,6 +33,7 @@ class ApiTripCustom {
           'end_date': endDate,
           'jumlah_peserta': jumlahPeserta,
           'tripID': tripID,
+          'judul_trip': judul_trip,
           'jenis_custom': jenisCustom,
           'cityID': cityID,
           'alamat_detail': alamatDetail,
@@ -50,4 +53,6 @@ class ApiTripCustom {
       throw Exception('Error: $e');
     }
   }
+
+  
 }
