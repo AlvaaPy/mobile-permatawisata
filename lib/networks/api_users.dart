@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Untuk mendapatkan ekstensi file
 
 class ApiUsers {
-  static const String baseUrl = 'http://192.168.54.1:8000/api/auth/v1/';
+  static const String baseUrl = 'http://192.168.119.1:8000/api/auth/v1/';
 
   // Register
   static Future<bool> register(String email, String password) async {
@@ -131,8 +131,8 @@ class ApiUsers {
       // Tetapkan URL gambar default jika profilePicture null atau kosong
       final profilePictureUrl = (profilePicture != null &&
               profilePicture.isNotEmpty)
-          ? 'http://192.168.54.1:8000/uploads/profile_pictures/$profilePicture'
-          : 'http://192.168.54.1:8000/uploads/profile_pictures/default.png';
+          ? 'http://192.168.119.1:8000/uploads/profile_pictures/$profilePicture'
+          : 'http://192.168.119.1:8000/uploads/profile_pictures/default.png';
 
       // Menyimpan data pengguna di SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -183,8 +183,8 @@ class ApiUsers {
             data['data']['birthDate'].substring(0, 10), // Ambil Y-m-d saja
         'gender': data['data']['gender'] ?? 'Unknown',
         'profile_picture': (data['data']['profile_picture'] != null)
-            ? 'http://192.168.54.1:8000/uploads/profile_pictures/${data['data']['profile_picture']}'
-            : 'http://192.168.54.1:8000/uploads/profile_pictures/default.png',
+            ? 'http://192.168.119.1:8000/uploads/profile_pictures/${data['data']['profile_picture']}'
+            : 'http://192.168.119.1:8000/uploads/profile_pictures/default.png',
       };
 
       return profileData;
@@ -222,4 +222,8 @@ class ApiUsers {
       throw Exception('Failed to log out. Status code: ${response.statusCode}');
     }
   }
+
+//update profile
+
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permatawisata/views/form/date.dart';
 import '../../networks/api_trip.dart';
 import 'description.dart';
 import 'itenary_trip.dart';
@@ -166,14 +167,33 @@ class _DetailTripPageState extends State<DetailTripPage>
                     ],
                   ),
                 ),
+
+                const SizedBox(height: 16),
+
+                // Setelah bagian rating
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.calendar_today,
+                          color: Colors.grey, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        "${trip['start_date']} - ${trip['end_date']}",
+                        style:
+                            const TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 16),
 
                 // Deskripsi trip
                 const Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     "Deskripsi",
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -236,13 +256,21 @@ class _DetailTripPageState extends State<DetailTripPage>
 
                 const SizedBox(height: 16),
 
-                
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Tambahkan aksi untuk tombol jika perlu
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DateOpenTrip(
+                            allowedStartDate:
+                                DateTime.parse(trip['start_date']),
+                            allowedEndDate: DateTime.parse(trip['end_date']),
+                            tripID: widget.tripID, // Tambahkan tripID
+                          ),
+                        ),
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Pemesanan Trip")),
                       );
@@ -268,7 +296,6 @@ class _DetailTripPageState extends State<DetailTripPage>
     if (words.length <= 15) {
       return text; // Jika kurang dari 15 kata, tampilkan teks asli
     }
-    return words.sublist(0, 15).join(' ') +
-        '...'; // Gabungkan 15 kata pertama dengan "..."
+    return '${words.sublist(0, 15).join(' ')}...'; // Gabungkan 15 kata pertama dengan "..."
   }
 }

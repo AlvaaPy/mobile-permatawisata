@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permatawisata/views/home/components/banner.dart';
 // import '../components/banner.dart';
 
 class HomeContent extends StatelessWidget {
@@ -44,35 +45,35 @@ class HomeContent extends StatelessWidget {
               ),
             ),
             // Row 2: Banner Ads
+            buildSection(
+              child: const BannerSlide(),
+              height: 130.0,
+            ),
+            // Row 3: Voucher (Placeholder)
             // buildSection(
-            //   child: const BannerSlider(),
+            //   child: const Placeholder(color: Colors.green),
             //   height: 100.0,
             // ),
-            // Row 3: Voucher (Placeholder)
-            buildSection(
-              child: const Placeholder(color: Colors.green),
-              height: 100.0,
-            ),
-            // Row 4: Keberangkatan Minggu Ini (Placeholder)
-            buildSection(
-              child: const Placeholder(color: Colors.orange),
-              height: 100.0,
-            ),
-            // Row 5: Berdasarkan Meeting Point (Placeholder)
-            buildSection(
-              child: const Placeholder(color: Colors.red),
-              height: 100.0,
-            ),
-            // Row 6: New Open Trip (Placeholder)
-            buildSection(
-              child: const Placeholder(color: Colors.purple),
-              height: 100.0,
-            ),
-            // Row 7: Paket Wisata Favorit (Placeholder)
-            buildSection(
-              child: const Placeholder(color: Colors.yellow),
-              height: 100.0,
-            ),
+            // // Row 4: Keberangkatan Minggu Ini (Placeholder)
+            // buildSection(
+            //   child: const Placeholder(color: Colors.orange),
+            //   height: 100.0,
+            // ),
+            // // Row 5: Berdasarkan Meeting Point (Placeholder)
+            // buildSection(
+            //   child: const Placeholder(color: Colors.red),
+            //   height: 100.0,
+            // ),
+            // // Row 6: New Open Trip (Placeholder)
+            // buildSection(
+            //   child: const Placeholder(color: Colors.purple),
+            //   height: 100.0,
+            // ),
+            // // Row 7: Paket Wisata Favorit (Placeholder)
+            // buildSection(
+            //   child: const Placeholder(color: Colors.yellow),
+            //   height: 100.0,
+            // ),
           ],
         ),
       ),

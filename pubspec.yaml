@@ -45,6 +45,9 @@ dependencies:
   http_parser: ^4.0.2
   path: ^1.8.3
   cached_network_image: ^3.3.1
+  map_launcher: ^3.5.0
+  flutter_map: ^6.1.0
+  
   
 
 
