@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (context) => Login()), // Langsung ke LoginPage
+            builder: (context) => const Login()), // Langsung ke LoginPage
         (route) => false, // Menghapus semua halaman sebelumnya
       );
     } catch (e) {
