@@ -267,10 +267,15 @@ class _DetailTripPageState extends State<DetailTripPage>
                             allowedStartDate:
                                 DateTime.parse(trip['start_date']),
                             allowedEndDate: DateTime.parse(trip['end_date']),
-                            tripID: widget.tripID, // Tambahkan tripID
+                            tripID: widget
+                                .tripID, // Kirimkan tripID dengan named parameter
+                            namaTrip: trip['namaTrip'] ??
+                                "Nama trip tidak tersedia", // Kirimkan namaTrip dengan named parameter
+                            pictureTrip: trip['picture'] ?? "tidak ada gambar"
                           ),
                         ),
                       );
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Pemesanan Trip")),
                       );

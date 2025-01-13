@@ -17,12 +17,13 @@ class _SelectDatePageState extends State<SelectDatePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pilih Tanggal"),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
+            // Tanggal Mulai
             const Text(
               "Pilih Tanggal Mulai",
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -43,7 +44,7 @@ class _SelectDatePageState extends State<SelectDatePage> {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8.0),
@@ -52,10 +53,13 @@ class _SelectDatePageState extends State<SelectDatePage> {
                   startDate != null
                       ? startDate!.toLocal().toString().split(' ')[0]
                       : "Klik untuk memilih tanggal mulai",
+                  style: TextStyle(fontSize: 16.0, color: Colors.black),
                 ),
               ),
             ),
             const SizedBox(height: 20),
+
+            // Tanggal Selesai
             const Text(
               "Pilih Tanggal Selesai",
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -76,7 +80,7 @@ class _SelectDatePageState extends State<SelectDatePage> {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8.0),
@@ -85,10 +89,13 @@ class _SelectDatePageState extends State<SelectDatePage> {
                   endDate != null
                       ? endDate!.toLocal().toString().split(' ')[0]
                       : "Klik untuk memilih tanggal selesai",
+                  style: TextStyle(fontSize: 16.0, color: Colors.black),
                 ),
               ),
             ),
             const SizedBox(height: 30),
+
+            // Tombol Lanjut
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -110,7 +117,17 @@ class _SelectDatePageState extends State<SelectDatePage> {
                     );
                   }
                 },
-                child: const Text("Lanjut ke Form Custom Trip"),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  primary: Colors.blueAccent, // Warna tombol
+                ),
+                child: const Text(
+                  "Lanjut ke Form Custom Trip",
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ),
             ),
           ],

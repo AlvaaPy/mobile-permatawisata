@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../networks/api_banners.dart'; // Ganti dengan path ke ApiBanners Anda
+import '../../../networks/api_banners.dart';
+import 'banner_detail.dart';
 
 class BannerSlide extends StatefulWidget {
   const BannerSlide({super.key});
@@ -9,18 +10,18 @@ class BannerSlide extends StatefulWidget {
 }
 
 class _BannerSlideState extends State<BannerSlide> {
-  Future<List<String>>? _bannerImages;
+  Future<List<Map<String, dynamic>>>? _bannerData;
 
   @override
   void initState() {
     super.initState();
-    _bannerImages = ApiBanners.getBanners();
+    _bannerData = ApiBanners.getBanners();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-      future: _bannerImages,
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _bannerData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -36,37 +37,44 @@ class _BannerSlideState extends State<BannerSlide> {
           );
         }
 
-        final bannerImages = snapshot.data!;
+        final bannerData = snapshot.data!;
 
         return SizedBox(
-          height: 200, // Tinggi slider diperbesar
+          height: 200,
           child: PageView.builder(
-            itemCount: bannerImages.length,
+            itemCount: bannerData.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey), // Tambahkan border
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.network(
-                      bannerImages[index],
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.error, color: Colors.red),
-                              const SizedBox(height: 8),
-                              Text('Gagal memuat gambar: ${error.toString()}'),
-                            ],
-                          ),
-                        );
-                      },
+              final banner = bannerData[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BannerDetailPage(
+                        imageUrl: banner['image']!,
+                        description: banner['description']!,
+                      ),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(
+                        banner['image']!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                            child: Icon(Icons.error, color: Colors.red),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

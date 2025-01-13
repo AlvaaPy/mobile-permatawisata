@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.permatawisata"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34 // Update this line
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -45,11 +45,12 @@ android {
         applicationId "com.example.permatawisata"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 20 // Update this line to 20
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+
 
     buildTypes {
         release {

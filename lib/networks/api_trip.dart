@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiTrip {
-  static const String baseUrl = 'http://192.168.119.1:8000/api/v1/';
+  static const String baseUrl = 'http://192.168.186.1:8000/api/v1/';
 
   // Mendapatkan semua data trip
   static Future<List<Map<String, dynamic>>> getTrips() async {
@@ -15,7 +15,6 @@ class ApiTrip {
 
     if (response.statusCode == 200) {
       final List<dynamic> tripData = json.decode(response.body);
-
       // Memproses setiap trip untuk mengambil data utama dan gambar
       return tripData.map<Map<String, dynamic>>((trip) {
         return {
@@ -30,8 +29,9 @@ class ApiTrip {
           'rating': trip['rating'] ?? 'N/A',
           'trip_type' : trip['trip_type'],
           'capacity' : trip['capacity'],
+          
           'picture':
-              'http://192.168.119.1:8000/uploads/img/trip/${trip['picture']}', // URL gambar utama
+              'http://192.168.186.1:8000/uploads/img/trip/${trip['picture']}', // URL gambar utama
         };
       }).toList();
     } else {
@@ -61,10 +61,10 @@ class ApiTrip {
         print('Parsed Data: $data');
 
         // URL gambar utama dan aset tambahan
-        final String mainImageBaseUrl =
-            'http://192.168.119.1:8000/uploads/img/trip/';
-        final String assetImageBaseUrl =
-            'http://192.168.119.1:8000/uploads/img/assetstrip/';
+        const String mainImageBaseUrl =
+            'http://192.168.186.1:8000/uploads/img/trip/';
+        const  String assetImageBaseUrl =
+            'http://192.168.186.1:8000/uploads/img/assetstrip/';
 
         // Memastikan gambar utama
         final String mainImageUrl = '$mainImageBaseUrl${data["picture"]}';

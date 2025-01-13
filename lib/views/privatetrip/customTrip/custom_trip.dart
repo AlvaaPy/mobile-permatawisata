@@ -20,10 +20,7 @@ class _CustomTripState extends State<CustomTrip> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const SelectDatePage()));
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text('Fitur Buat Custom Trip akan dikembangkan!')),
-            );
+            
           },
           child: Container(
             padding: const EdgeInsets.symmetric(

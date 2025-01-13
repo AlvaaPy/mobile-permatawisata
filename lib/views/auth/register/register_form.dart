@@ -163,7 +163,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Login()
+                      builder: (context) => const Login()
                     ),
                   );
                 }
