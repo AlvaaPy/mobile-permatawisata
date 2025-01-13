@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiRental {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/v1/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/v1/';
 
   // Mendapatkan semua data rental
   static Future<List<Map<String, dynamic>>> getRental() async {
@@ -33,7 +33,7 @@ class ApiRental {
               rental['dengan_supir'] ?? 'tidak', // Pastikan tipe data string
           'harga': rental['harga']?.toString() ?? '0',
           'foto': rental['foto'] != null
-              ? 'http://192.168.186.1:8000/uploads/img/rental/foto/${rental['foto']}'
+              ? 'https://be.permata.tifpsdku.com/uploads/img/rental/foto/${rental['foto']}'
               : '',
         };
       }).toList();
@@ -66,8 +66,8 @@ class ApiRental {
 
         // URL gambar utama dan gambar aset
         const String mainImageBaseUrl =
-            'http://192.168.186.1:8000/uploads/img/rental/foto/';
-        const String assetImageBaseUrl = 'http://192.168.186.1:8000/';
+            'https://be.permata.tifpsdku.com/uploads/img/rental/foto/';
+        const String assetImageBaseUrl = 'https://be.permata.tifpsdku.com/';
 
         // Memastikan gambar utama
         final String mainImageUrl = '$mainImageBaseUrl${data["Data"]["foto"]}';

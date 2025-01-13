@@ -50,6 +50,7 @@ dependencies:
   latlong2: ^0.9.1
   google_maps_flutter: ^2.2.0 # Versi terbaru bisa dicek di pub.dev
   
+  
 
 
 dev_dependencies:
@@ -62,9 +63,17 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.11.0"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/img/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
 
 # The following section is specific to Flutter packages.
 flutter:

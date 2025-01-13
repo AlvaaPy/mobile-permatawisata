@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiTrip {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/v1/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/v1/';
 
   // Mendapatkan semua data trip
   static Future<List<Map<String, dynamic>>> getTrips() async {
@@ -31,7 +31,7 @@ class ApiTrip {
           'capacity' : trip['capacity'],
           
           'picture':
-              'http://192.168.186.1:8000/uploads/img/trip/${trip['picture']}', // URL gambar utama
+              'https://be.permata.tifpsdku.com/uploads/img/trip/${trip['picture']}', // URL gambar utama
         };
       }).toList();
     } else {
@@ -62,9 +62,9 @@ class ApiTrip {
 
         // URL gambar utama dan aset tambahan
         const String mainImageBaseUrl =
-            'http://192.168.186.1:8000/uploads/img/trip/';
+            'https://be.permata.tifpsdku.com/uploads/img/trip/';
         const  String assetImageBaseUrl =
-            'http://192.168.186.1:8000/uploads/img/assetstrip/';
+            'https://be.permata.tifpsdku.com/uploads/img/assetstrip/';
 
         // Memastikan gambar utama
         final String mainImageUrl = '$mainImageBaseUrl${data["picture"]}';

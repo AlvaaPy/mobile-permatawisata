@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiBanners {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/v1/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/v1/';
   static const String imageBaseUrl =
-      'http://192.168.186.1:8000/uploads/img/banner/';
+      'https://be.permata.tifpsdku.com/uploads/img/banner/';
 
   // Mendapatkan data banner
   static Future<List<Map<String, dynamic>>> getBanners() async {

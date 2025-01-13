@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiTripCustom {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/auth/v1/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/auth/v1/';
 
   // Request Custom Trip
   static Future<Map<String, dynamic>> requestTrip({

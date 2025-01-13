@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiReservation {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/auth/v1/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/auth/v1/';
 
   static Future<Map<String, dynamic>> reservation({
   required int tripID,

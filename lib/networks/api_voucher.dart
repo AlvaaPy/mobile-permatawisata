@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiVoucher {
-  static const String baseUrl = 'http://192.168.186.1:8000/api/v1/';
-  static const String imageBaseUrl = 'http://192.168.186.1:8000/uploads/img/voucher/';
+  static const String baseUrl = 'https://be.permata.tifpsdku.com/api/v1/';
+  static const String imageBaseUrl = 'https://be.permata.tifpsdku.com/uploads/img/voucher/';
 
   // Ambil data voucher yang penting
   static Future<List<Map<String, dynamic>>> getVoucher() async {
