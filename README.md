@@ -1,16 +1,24 @@
-# permatawisata
+# Open Trip - Flutter Application
 
-A new Flutter project.
+Aplikasi **Open Trip** yang dibangun menggunakan **Flutter** untuk memberikan pengalaman pengguna yang interaktif dan responsif. Aplikasi ini memungkinkan pengguna untuk melihat paket trip, melakukan reservasi, menggunakan voucher diskon, dan menyewa kendaraan untuk perjalanan.
 
-## Getting Started
+## Fitur
+- Melihat paket trip (Open Trip, Private Trip, Custom Trip).
+- Melakukan reservasi trip.
+- Menyewa kendaraan.
+- Menggunakan voucher untuk diskon.
+- Halaman login dan registrasi.
+- Profil pengguna yang dapat diperbarui.
 
-This project is a starting point for a Flutter application.
+## Prasyarat
+Sebelum memulai, pastikan Anda telah menginstal hal-hal berikut:
+- **Flutter SDK** >= 3.0
+- **Dart SDK** >= 2.18
+- **Android Studio** atau IDE lainnya yang mendukung Flutter
+- **API Laravel** yang terintegrasi (jika belum, Anda dapat mengikuti panduan backend Laravel yang telah disediakan)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Instalasi
+1. **Clone Repository**:
+   ```bash
+   git clone https://github.com/username/flutter-open-trip.git
+   cd flutter-open-trip
